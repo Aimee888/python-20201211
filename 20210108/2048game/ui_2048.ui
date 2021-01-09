@@ -81,6 +81,11 @@
     <property name="text">
      <string>0</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -88,6 +93,11 @@
    <item row="0" column="1">
     <property name="text">
      <string>0</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
     </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
@@ -97,6 +107,11 @@
     <property name="text">
      <string>0</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -104,6 +119,11 @@
    <item row="0" column="3">
     <property name="text">
      <string>0</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
     </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
@@ -113,6 +133,11 @@
     <property name="text">
      <string>0</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -120,6 +145,11 @@
    <item row="1" column="1">
     <property name="text">
      <string>0</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
     </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
@@ -129,6 +159,11 @@
     <property name="text">
      <string>0</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -136,6 +171,11 @@
    <item row="1" column="3">
     <property name="text">
      <string>0</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
     </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
@@ -145,6 +185,11 @@
     <property name="text">
      <string>0</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -152,6 +197,11 @@
    <item row="2" column="1">
     <property name="text">
      <string>0</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
     </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
@@ -161,6 +211,11 @@
     <property name="text">
      <string>0</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -168,6 +223,11 @@
    <item row="2" column="3">
     <property name="text">
      <string>0</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
     </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
@@ -177,6 +237,11 @@
     <property name="text">
      <string>0</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -184,6 +249,11 @@
    <item row="3" column="1">
     <property name="text">
      <string>0</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
     </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
@@ -193,6 +263,11 @@
     <property name="text">
      <string>0</string>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
     </property>
@@ -200,6 +275,11 @@
    <item row="3" column="3">
     <property name="text">
      <string>0</string>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>18</pointsize>
+     </font>
     </property>
     <property name="textAlignment">
      <set>AlignCenter</set>
@@ -209,9 +289,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>10</x>
      <y>20</y>
-     <width>301</width>
+     <width>331</width>
      <height>81</height>
     </rect>
    </property>
