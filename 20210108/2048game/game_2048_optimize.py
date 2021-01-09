@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 # _*_ coding: UTF-8 _*_
 """=================================================
-@Project -> File    : python-20201211 -> game_2048.py
+@Project -> File    : python-20201211 -> game_2048_optimize.py
 @IDE     : PyCharm
 @Author  : Aimee
-@Date    : 2021/1/8 11:48
+@Date    : 2021/1/9 13:51
 @Desc    :
 ================================================="""
 import sys
@@ -56,13 +56,13 @@ class QmyWidget(QWidget):
 
     def keyReleaseEvent(self, event):
         if event.key() == Qt.Key_W or event.key() == Qt.Key_Up:
-            self.up_excuted()
+            self.up_move()
         if event.key() == Qt.Key_A or event.key() == Qt.Key_Down:
-            self.down_excuted()
+            self.down_move()
         if event.key() == Qt.Key_S or event.key() == Qt.Key_Left:
-            self.left_excuted()
+            self.left_move()
         if event.key() == Qt.Key_D or event.key() == Qt.Key_Right:
-            self.right_excuted()
+            self.right_move()
 
     def getcolumn_data(self, num_column):
         column_l = num_column - 1
@@ -79,88 +79,125 @@ class QmyWidget(QWidget):
         for column_l in range(4):  # 每一行
             cell_str = self.ui.tableWidget.item(row_l, column_l).text()
             row_data.append(int(cell_str))
-        # print(column_data)
         return row_data
 
-    def set_item_data(self, row_num_1, column_num_1, row_num_2, column_num_2):
-        item_1 = self.ui.tableWidget.item(row_num_1, column_num_1)
-        item_2 = self.ui.tableWidget.item(row_num_2, column_num_2)
-        int_1 = int(item_1.text())
-        int_2 = int(item_2.text())
-        if int_1 == int_2:
-            item_2.setText(str(int_1 * 2))
-            item_1.setText("0")
-        else:
-            if int_2 == 0:
-                item_2.setText(str(int_1))
-                item_1.setText("0")
+    def remove_zero(self, aim_list):
+        des_list = []
+        for item in aim_list:
+            if item != 0:
+                des_list.append(item)
+        if len(des_list) == len(aim_list):
+            return des_list, False
+        return des_list, True
 
-    def sort_one_column_up(self, i):
-        column_data = self.getcolumn_data(i)
-        if column_data == [0, 0, 0, 0]:
-            pass
-        else:
-            while True:
-                length_column = len(column_data)
-                while length_column > 1:
-                    self.set_item_data(length_column - 1, i - 1, length_column - 2, i - 1)
-                    length_column = length_column - 1
-                column_data = self.getcolumn_data(i)
-                if len(set(column_data)) == 4:
-                    break
-                if len(set(column_data[0:3])) == 3 and column_data[3] == 0:
-                    break
-                if len(set(column_data[0:2])) == 2 and column_data[2] == 0 and column_data[3] == 0:
-                    break
-                if column_data[1] == 0 and column_data[2] == 0 and column_data[3] == 0:
-                    break
-                if column_data[0] != column_data[1] and column_data[1] != column_data[2] and column_data[2] != column_data[3]:
-                    break
+    def merge_list(self, mer_list):
+        temp_mer_list = mer_list
+        length_temp = len(temp_mer_list)
+        while length_temp > 1:
+            if temp_mer_list[-1] == temp_mer_list[-2]:
+                temp_mer_list[-2] = temp_mer_list[-2] * 2
+                temp_mer_list[-1] = 0
+            else:
+                if temp_mer_list[-2] == 0:
+                    temp_mer_list[-2] = temp_mer_list[-1]
+                    temp_mer_list[-1] = 0
+            length_temp = length_temp - 1
+        return temp_mer_list
 
-    def sort_one_column_down(self, i):
-        column_data = self.getcolumn_data(i)
-        if column_data == [0, 0, 0, 0]:
-            pass
-        else:
-            while True:
-                length_column = len(column_data)
-                times = 0
-                while times < length_column - 1:
-                    self.set_item_data(times, i - 1, times + 1, i - 1)
-                    times = times + 1
-                column_data = self.getcolumn_data(i)
-                if len(set(column_data)) == 4:
-                    break
-                if len(set(column_data[1:4])) == 3 and column_data[0] == 0:
-                    break
-                if len(set(column_data[2:4])) == 2 and column_data[0] == 0 and column_data[1] == 0:
-                    break
-                if column_data[0] == 0 and column_data[1] == 0 and column_data[2] == 0:
-                    break
-                if column_data[0] != column_data[1] and column_data[1] != column_data[2] and column_data[2] != column_data[3]:
-                    break
+    def merge_list_reversed(self, mer_list):
+        temp_mer_list = mer_list
+        length_temp = len(temp_mer_list)
+        times = 0
+        while times < length_temp - 1:
+            if temp_mer_list[times] == temp_mer_list[times + 1]:
+                temp_mer_list[times + 1] = temp_mer_list[times] * 2
+                temp_mer_list[times] = 0
+            else:
+                if temp_mer_list[times + 1] == 0:
+                    temp_mer_list[times + 1] = temp_mer_list[times]
+                    temp_mer_list[times] = 0
+            times = times + 1
+        return temp_mer_list
 
-    def sort_one_column_left(self, i):
-        row_data = self.getrow_data(i)
-        if row_data == [0, 0, 0, 0]:
-            pass
-        else:
-            while True:
-                length_column = len(row_data)
-                while length_column > 1:
-                    self.set_item_data(i - 1, length_column - 1, i - 1, length_column - 2)
-                    length_column = length_column - 1
-                row_data = self.getrow_data(i)
-                if len(set(row_data)) == 4:
-                    break
-                if len(set(row_data[0:3])) == 3 and row_data[3] == 0:
-                    break
-                if len(set(row_data[0:2])) == 2 and row_data[2] == 0 and row_data[3] == 0:
-                    break
-                if row_data[1] == 0 and row_data[2] == 0 and row_data[3] == 0:
-                    break
-                if row_data[0] != row_data[1] and row_data[1] != row_data[2] and row_data[2] != row_data[3]:
-                    break
+    def paint_column(self, data_column, column_num):
+        for row_num in range(len(data_column)):
+            item = self.ui.tableWidget.item(row_num, column_num - 1)
+            item.setText(str(data_column[row_num]))
+
+    def paint_row(self, data_row, row_num):
+        print(row_num)
+        for column_num in range(len(data_row)):
+            item = self.ui.tableWidget.item(row_num - 1, column_num)
+            item.setText(str(data_row[column_num]))
+
+    def sort_one_column_up(self, colum_num):
+        column_data = self.getcolumn_data(colum_num)
+        temp_data = column_data
+        break_out = False
+        while not break_out:
+            temp_data, modify = self.remove_zero(temp_data)
+            if len(temp_data) == 0:
+                break_out = True
+            elif modify is False:
+                repeat_data = False
+                for a in range(len(temp_data) - 1):
+                    if temp_data[a] == temp_data[a+1]:
+                        repeat_data = True
+                        break
+                if not repeat_data:
+                    break_out = True
+            else:
+                temp_data = self.merge_list(temp_data)
+        num_zero = len(column_data) - len(temp_data)
+        for x in range(num_zero):
+            temp_data.append(0)
+        self.paint_column(temp_data, colum_num)
+
+    def sort_one_column_down(self, colum_num):
+        column_data = self.getcolumn_data(colum_num)
+        temp_data = column_data
+        break_out = False
+        while not break_out:
+            temp_data, modify = self.remove_zero(temp_data)
+            if len(temp_data) == 0:
+                break_out = True
+            elif modify is False:
+                repeat_data = False
+                for a in range(len(temp_data) - 1):
+                    if temp_data[a] == temp_data[a+1]:
+                        repeat_data = True
+                        break
+                if not repeat_data:
+                    break_out = True
+            else:
+                temp_data = self.merge_list_reversed(temp_data)
+        num_zero = len(column_data) - len(temp_data)
+        for x in range(num_zero):
+            temp_data.insert(0, 0)
+        self.paint_column(temp_data, colum_num)
+
+    def sort_one_column_left(self, row_num):
+        row_data = self.getrow_data(row_num)
+        temp_data = row_data
+        break_out = False
+        while not break_out:
+            temp_data, modify = self.remove_zero(temp_data)
+            if len(temp_data) == 0:
+                break_out = True
+            elif modify is False:
+                repeat_data = False
+                for a in range(len(temp_data) - 1):
+                    if temp_data[a] == temp_data[a+1]:
+                        repeat_data = True
+                        break
+                if not repeat_data:
+                    break_out = True
+            else:
+                temp_data = self.merge_list(temp_data)
+        num_zero = len(row_data) - len(temp_data)
+        for x in range(num_zero):
+            temp_data.append(0)
+        self.paint_row(temp_data, row_num)
 
     def sort_one_column_right(self, i):
         row_data = self.getrow_data(i)
@@ -240,7 +277,7 @@ class QmyWidget(QWidget):
             self.ui.label_2.setText("You only spend {} count".format(self.count))
             self.ui.pushButton.setVisible(True)
 
-    def up_excuted(self):
+    def up_move(self):
         self.count = self.count + 1
         # if self.count == 5:
         #     self.ui.tableWidget.item(3, 0).setText(str(2048))
@@ -255,7 +292,7 @@ class QmyWidget(QWidget):
                 print("game over")
             self.pass_judge()
 
-    def down_excuted(self):
+    def down_move(self):
         self.count = self.count + 1
         if not self.game_pass and not self.game_over:
             for x in range(1, 5):
@@ -268,7 +305,7 @@ class QmyWidget(QWidget):
                 print("game over")
             self.pass_judge()
 
-    def left_excuted(self):
+    def left_move(self):
         self.count = self.count + 1
         if not self.game_pass and not self.game_over:
             for x in range(1, 5):
@@ -281,7 +318,7 @@ class QmyWidget(QWidget):
                 print("game over")
             self.pass_judge()
 
-    def right_excuted(self):
+    def right_move(self):
         self.count = self.count + 1
         if not self.game_pass and not self.game_over:
             for x in range(1, 5):
@@ -300,3 +337,4 @@ if __name__ == '__main__':
     form = QmyWidget()
     form.show()
     sys.exit(app.exec_())
+
