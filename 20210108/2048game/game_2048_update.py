@@ -111,12 +111,17 @@ class QmyWidget(QWidget):
         temp_list = self.remove_zero(temp_list)
         # 排序
         temp_length = len(temp_list)
-        while temp_length > 1:
-            if temp_list[temp_length - 1] == temp_list[temp_length - 2]:
-                temp_list[temp_length - 2] = temp_list[temp_length - 2] * 2
-                temp_list[temp_length - 1] = 0
+        for j in range(temp_length - 1):
+            if temp_list[j] == temp_list[j+1]:
+                temp_list[j+1] = temp_list[j+1] * 2
+                temp_list[j] = 0
                 break
-            temp_length = temp_length - 1
+        # while temp_length > 1:
+        #     if temp_list[temp_length - 1] == temp_list[temp_length - 2]:
+        #         temp_list[temp_length - 2] = temp_list[temp_length - 2] * 2
+        #         temp_list[temp_length - 1] = 0
+        #         break
+        #     temp_length = temp_length - 1
         # 去0
         temp_list = self.remove_zero(temp_list)
         # 补0
@@ -133,11 +138,17 @@ class QmyWidget(QWidget):
         temp_list = self.remove_zero(temp_list)
         # 排序
         temp_length = len(temp_list)
-        for j in range(temp_length - 1):
-            if temp_list[j] == temp_list[j+1]:
-                temp_list[j+1] = temp_list[j+1] * 2
-                temp_list[j] = 0
+        while temp_length > 1:
+            if temp_list[temp_length - 1] == temp_list[temp_length - 2]:
+                temp_list[temp_length - 2] = temp_list[temp_length - 2] * 2
+                temp_list[temp_length - 1] = 0
                 break
+            temp_length = temp_length - 1
+        # for j in range(temp_length - 1):
+        #     if temp_list[j] == temp_list[j+1]:
+        #         temp_list[j+1] = temp_list[j+1] * 2
+        #         temp_list[j] = 0
+        #         break
         # 去0
         temp_list = self.remove_zero(temp_list)
         # 补0
