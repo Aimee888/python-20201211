@@ -21,13 +21,16 @@ class QmyWidget(QWidget):
         self.ui = Ui_Form()  # 创建UI对象
         self.ui.setupUi(self)  # 构造UI
 
-        self.init_setting()
-        self.init_datas()
-
         self.game_pass = False  # 游戏通关
         self.game_fail = False  # 游戏失败
         self.count = 0  # 移动的步数
         self.random_genarate = 0  # 当value = 4时不产生随机数
+        self.score = 0  # 分数
+
+        self.init_setting()
+        self.init_datas()
+
+        self.ui.pushButton.clicked.connect(self.restart)
 
     # 初始化设置
     def init_setting(self):
@@ -44,15 +47,34 @@ class QmyWidget(QWidget):
         self.ui.tableWidget.setFocusPolicy(Qt.NoFocus)
         # 设置表格不可编辑
         self.ui.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        #
+        self.ui.tableWidget.setVisible(True)
         # 设置label不可见
         self.ui.label.setVisible(False)
         self.ui.label_2.setVisible(False)
         self.ui.pushButton.setVisible(False)
+        self.ui.label_4.setText("0")
+        self.ui.label_4.setStyleSheet("QLabel { color : green; }")
 
     # 初始化数据
     def init_datas(self):
+        for m in range(4):
+            for n in range(4):
+                item = self.ui.tableWidget.item(m, n)
+                item.setText("0")
         self.generate_randnum()
         self.generate_randnum()
+
+    def restart(self):
+        print("restart")
+        self.game_pass = False  # 游戏通关
+        self.game_fail = False  # 游戏失败
+        self.count = 0  # 移动的步数
+        self.random_genarate = 0  # 当value = 4时不产生随机数
+        self.score = 0  # 分数
+
+        self.init_setting()
+        self.init_datas()
 
     # 接收键盘消息
     def keyReleaseEvent(self, event):
@@ -115,6 +137,8 @@ class QmyWidget(QWidget):
             if temp_list[j] == temp_list[j+1]:
                 temp_list[j+1] = temp_list[j+1] * 2
                 temp_list[j] = 0
+                self.score = self.score + 3
+                self.ui.label_4.setText(str(self.score))
                 break
         # while temp_length > 1:
         #     if temp_list[temp_length - 1] == temp_list[temp_length - 2]:
@@ -142,6 +166,8 @@ class QmyWidget(QWidget):
             if temp_list[temp_length - 1] == temp_list[temp_length - 2]:
                 temp_list[temp_length - 2] = temp_list[temp_length - 2] * 2
                 temp_list[temp_length - 1] = 0
+                self.score = self.score + 3
+                self.ui.label_4.setText(str(self.score))
                 break
             temp_length = temp_length - 1
         # for j in range(temp_length - 1):

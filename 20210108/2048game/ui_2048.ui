@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>353</width>
-    <height>332</height>
+    <width>364</width>
+    <height>393</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>20</y>
+     <y>60</y>
      <width>300</width>
      <height>300</height>
     </rect>
@@ -36,6 +36,9 @@
    </property>
    <property name="styleSheet">
     <string notr="true"/>
+   </property>
+   <property name="gridStyle">
+    <enum>Qt::DashDotDotLine</enum>
    </property>
    <row>
     <property name="text">
@@ -326,7 +329,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>20</y>
+     <y>60</y>
      <width>331</width>
      <height>81</height>
     </rect>
@@ -347,7 +350,7 @@
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>110</y>
+     <y>150</y>
      <width>301</width>
      <height>81</height>
     </rect>
@@ -368,7 +371,7 @@
    <property name="geometry">
     <rect>
      <x>130</x>
-     <y>220</y>
+     <y>260</y>
      <width>101</width>
      <height>41</height>
     </rect>
@@ -383,6 +386,49 @@ border-style: outset;}</string>
    </property>
    <property name="text">
     <string>Try Again</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>71</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Score: </string>
+   </property>
+   <property name="textFormat">
+    <enum>Qt::AutoText</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>10</y>
+     <width>81</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>
