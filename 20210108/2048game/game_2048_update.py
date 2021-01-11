@@ -21,6 +21,9 @@ class QmyWidget(QWidget):
         self.ui = Ui_Form()  # 创建UI对象
         self.ui.setupUi(self)  # 构造UI
 
+        # 禁止最大化，禁止拉伸
+        self.setFixedSize(self.width(), self.height())
+
         self.game_pass = False  # 游戏通关
         self.game_fail = False  # 游戏失败
         self.count = 0  # 移动的步数
