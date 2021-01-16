@@ -8,8 +8,11 @@
 @Desc    :
 ================================================="""
 import sys
+import os
+if hasattr(sys, 'frozen'):
+    os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
 from PyQt5.QtWidgets import QApplication, QWidget, QHeaderView, QAbstractItemView
-from PyQt5.QtGui import QBrush, QColor, QFont
+from PyQt5.QtGui import QBrush, QColor, QFont, QPalette, QPixmap, QIcon
 from PyQt5.QtCore import Qt
 from ui_2048_update import Ui_Form
 import random
@@ -50,7 +53,7 @@ class QmyWidget(QWidget):
         self.ui.tableWidget.setFocusPolicy(Qt.NoFocus)
         # 设置表格不可编辑
         self.ui.tableWidget.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        #
+        # 设置表格可见
         self.ui.tableWidget.setVisible(True)
         # 设置label不可见
         # self.ui.label.setVisible(False)
@@ -58,6 +61,12 @@ class QmyWidget(QWidget):
         # self.ui.pushButton.setVisible(False)
         self.ui.label_4.setText("0")
         self.ui.label_4.setStyleSheet("QLabel { color : green; }")
+
+        # 设置背景图片https://blog.csdn.net/rosefun96/article/details/79477880?utm_source=blogxgwz6
+        palette1 = QPalette()
+        palette1.setBrush(self.backgroundRole(), QBrush(QPixmap(r'F:\gitplay\python-20201211\20210108\2048game\resouces\back.jpeg')))
+        self.setPalette(palette1)
+        self.setWindowIcon(QIcon(r'F:\gitplay\python-20201211\20210108\2048game\resouces\2048.jpg'))
 
     # 初始化数据
     def init_datas(self):

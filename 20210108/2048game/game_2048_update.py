@@ -348,6 +348,7 @@ class QmyWidget(QWidget):
     def pass_funtion(self):
         self.ui.tableWidget.setVisible(False)
         self.ui.label.setVisible(True)
+        self.ui.label.setText("Successful!!! You are so great.")
         self.ui.label_2.setVisible(True)
         self.ui.label_2.setText("You only spend {} count".format(self.count))
         self.ui.pushButton.setVisible(True)
