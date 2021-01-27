@@ -11,7 +11,7 @@ import sys
 import os
 if hasattr(sys, 'frozen'):
     os.environ['PATH'] = sys._MEIPASS + ";" + os.environ['PATH']
-from PyQt5.QtWidgets import QApplication, QWidget, QHeaderView, QAbstractItemView
+from PyQt5.QtWidgets import QApplication, QWidget, QHeaderView, QAbstractItemView, QMessageBox
 from PyQt5.QtGui import QBrush, QColor, QFont, QPalette, QPixmap, QIcon
 from PyQt5.QtCore import Qt
 from ui_2048_update import Ui_Form
@@ -29,6 +29,7 @@ class QmyWidget(QWidget):
 
         self.game_pass = False  # 游戏通关
         self.game_fail = False  # 游戏失败
+        self.endless = False    # 无尽模式
         self.count = 0  # 移动的步数
         self.random_genarate = 0  # 当value = 4时不产生随机数
         self.score = 0  # 分数
@@ -76,6 +77,7 @@ class QmyWidget(QWidget):
                 item.setText("0")
         self.generate_randnum()
         self.generate_randnum()
+        self.ui.tableWidget.item(1, 1).setText("2048")
 
     def restart(self):
         print("restart")
@@ -347,19 +349,17 @@ class QmyWidget(QWidget):
 
     def fail_funtion(self):
         self.ui.tableWidget.setVisible(False)
-        # self.ui.label.setVisible(True)
-        # self.ui.label.setText("Game Over!!!")
-        # self.ui.label_2.setVisible(True)
-        # self.ui.label_2.setText("You spend {} count".format(self.count))
-        # self.ui.pushButton.setVisible(True)
 
     # 成功后刷新界面
     def pass_funtion(self):
-        self.ui.tableWidget.setVisible(False)
-        # self.ui.label.setVisible(True)
-        # self.ui.label_2.setVisible(True)
-        # self.ui.label_2.setText("You only spend {} count".format(self.count))
-        # self.ui.pushButton.setVisible(True)
+        # self.ui.tableWidget.setVisible(False)
+        form.setWindowOpacity(0.9)
+        reply = QMessageBox.question(self, 'Message',
+                                     '需要继续吗?', QMessageBox.Yes,
+                                     QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            form.setWindowOpacity(1)
+            self.endless = True
 
     def move_init(self):
         self.count = self.count + 1
@@ -367,7 +367,7 @@ class QmyWidget(QWidget):
         self.default_color()
 
     def move_function(self, direct):
-        if not self.game_pass and not self.game_fail:
+        if not self.game_pass and not self.game_fail or self.endless:
             self.move_init()
             for x in range(1, 5):
                 self.draw_tablewidgt(x, direct)
@@ -377,10 +377,11 @@ class QmyWidget(QWidget):
             if self.game_fail:
                 print("game over")
                 self.fail_funtion()
-            self.pass_judge()
-            if self.game_pass:
-                print("successful")
-                self.pass_funtion()
+            if not self.endless:
+                self.pass_judge()
+                if self.game_pass:
+                    print("successful")
+                    self.pass_funtion()
 
 
 if __name__ == '__main__':
